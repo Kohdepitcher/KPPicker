@@ -6,6 +6,6 @@ final class KPPickerTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(KPPicker().text, "Hello, World!")
+        //XCTAssertEqual(KPPicker().text, "Hello, World!")
     }
 }
