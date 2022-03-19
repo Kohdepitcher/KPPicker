@@ -317,6 +317,12 @@ extension KPPickerView: UICollectionViewDelegate {
         
         //select the item at the index path of the cell
         self.selectItem(indexPath.item, animated: true, notifySelection: true)
+        
+        let tappedCell = self.collectionView.cellForItem(at: indexPath) as! PickerCollectionViewCell
+        tappedCell.label.textColor = textColor
+        
+        let middleCell = self.collectionView.cellForItem(at: cellInMiddleIndexPath) as! PickerCollectionViewCell
+        middleCell.label.textColor = selectedTextColor
     }
     
 }
@@ -488,7 +494,7 @@ extension KPPickerView: UIScrollViewDelegate {
         if let indexPath = self.collectionView.indexPathForItem(at: center) {
 
             //grab a reference of the cell at the index path above
-            let cell = self.collectionView(self.collectionView, cellForItemAt: indexPath)
+            let cell: PickerCollectionViewCell = self.collectionView.cellForItem(at: indexPath) as! PickerCollectionViewCell
 
             //get the center point of the cell realtive to the collection view
             let middle = self.collectionView.convert(cell.center, to: self.collectionView)
