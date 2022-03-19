@@ -37,14 +37,40 @@ import UIKit
 //MARK: - Protocols
 //Specified interactions between the picker and the object that is using it
 @objc public protocol KPPickerViewDelegate {
+    
+    /**
+        **Optional**
+        Called when a label is selected
+     */
     @objc optional func pickerView(_ pickerView: KPPickerView, didSelectItem item: Int)
+    
+    /**
+        **Optional**
+        Tell the picker an extra margin to add to the margin at a specific index
+     */
     @objc optional func pickerView(_ pickerView: KPPickerView, marginSpacingForItem item: Int) -> CGSize
+    
+    /**
+        **Optional**
+        Allows the label at a specific index to be customised
+
+        Avoid setting any text color or font as this is already done by the picker itself and will cause issues
+     */
     @objc optional func pickerView(_ pickerView: KPPickerView, configureLabel label: UILabel, forItem item: Int)
 }
 
 @objc public protocol KPPickerViewDataSource {
+    
+    
+    /**
+        Tells the picker how many cells it will have in the data source
+     */
     func numberOfItems(_ pickerView: KPPickerView) -> Int
-    @objc optional func pickerView(_ pickerView: KPPickerView, textForItem item: Int) -> String
+    
+    /**
+        Tells the picker what text to use for item at the index
+     */
+    @objc func pickerView(_ pickerView: KPPickerView, textForItem item: Int) -> String
 }
 
 //MARK: - Implementation of the picker view
@@ -66,7 +92,7 @@ public class KPPickerView: UIView {
     //Color used for the selected state of the cell
     public var selectedTextColor: UIColor = .systemBlue
     
-    //Defines how far away from the center a cell is considered in the middle to be animationally picker
+    //Defines how far away from the center a cell is considered in the middle to be seleted
     public var selectionThreshold: Int = 10
     
     //Makes the collection view deselect the cell when outside the threshold set above
@@ -189,6 +215,7 @@ public class KPPickerView: UIView {
             
             //Scroll the picker to the selected position
             self.scrollToItem(self.selectedPosition, animated: false)
+
         }
         
         //Update the mask for the picker to match the bounds of the underlying collection view
@@ -202,7 +229,7 @@ public class KPPickerView: UIView {
     
     
     /**
-        When called, returns the CGSize for a string using the font for the picker
+        When called, returns the CGSize for a string using the specified font applied on the picker
      
         - Parameter string: The string to get the size for
      
@@ -248,7 +275,7 @@ public class KPPickerView: UIView {
             - item: The position of the item
             - animated: Should the picker animate the selection?
      */
-    public func selectItem(_ item: Int, animated:Bool = false) {
+    public func selectItem(_ item: Int, animated: Bool = true) {
         
         //Call the internal selectItem function but force selection so that the selected index is updated and the delegate is informed
         self.selectItem(item, animated: animated, notifySelection: true)
@@ -289,7 +316,7 @@ extension KPPickerView: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         //select the item at the index path of the cell
-        self.selectItem(indexPath.item, animated: true)
+        self.selectItem(indexPath.item, animated: true, notifySelection: true)
     }
     
 }
@@ -317,7 +344,7 @@ extension KPPickerView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(PickerCollectionViewCell.self), for: indexPath) as! PickerCollectionViewCell
 
         //try to get the label for the cell's index path from the data source
-        if let text = self.dataSource?.pickerView?(self, textForItem: indexPath.item) {
+        if let text = self.dataSource?.pickerView(self, textForItem: indexPath.item) {
             
             //setup the colors in the cell
             cell.selectedTint = self.selectedTextColor
@@ -370,7 +397,7 @@ extension KPPickerView: UICollectionViewDelegateFlowLayout {
         var size = CGSize(width: self.itemSpacing, height: collectionView.bounds.size.height)
 
         //Conintue if we can get string for the index path
-        if let title = self.dataSource?.pickerView?(self, textForItem: indexPath.item) {
+        if let title = self.dataSource?.pickerView(self, textForItem: indexPath.item) {
             
             //Append the width of the string to with of the size utlising the picker's font
             size.width += self.sizeForString(title as NSString).width
