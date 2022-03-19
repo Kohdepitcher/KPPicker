@@ -33,7 +33,19 @@ import SwiftUI
 struct KPPicker_DemoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            
+            TabView {
+                KPConfiguratorDemoView()
+                    .tabItem {
+                        Label("Customise", systemImage: "paintbrush")
+                    }
+                
+                UIKitDemoView()
+                    .tabItem {
+                        Label("UIKit", systemImage: "cube.fill")
+                    }
+            }
+            
         }
     }
 }
