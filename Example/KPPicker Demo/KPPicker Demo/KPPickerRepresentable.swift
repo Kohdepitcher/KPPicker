@@ -40,11 +40,13 @@ struct KPPickerRepresentable: UIViewRepresentable {
     @Binding var maskEnable: Bool
     @Binding var selectionThreshold: Int
     @Binding var shouldDeselectWhenOutsideTreshold: Bool
+    @Binding var shouldReload: Bool
     
     func makeUIView(context: Context) -> KPPickerView {
         let picker = KPPickerView()
         
         //setup the picker
+        picker.textColor = UIColor(textColor)
         picker.selectedTextColor = UIColor(selectedColor)
         picker.itemSpacing = CGFloat(spacing)
         picker.font = UIFont.systemFont(ofSize: 17, weight: .bold)
@@ -68,7 +70,16 @@ struct KPPickerRepresentable: UIViewRepresentable {
         uiView.maskEnabled = maskEnable
         uiView.selectionThreshold = selectionThreshold
         uiView.shouldDeselectWhenOutsideTreshold = shouldDeselectWhenOutsideTreshold
-        uiView.reloadData()
+        
+        //optionally reload the picker when shouldReload is set
+        /*  This is stop an animation bug from occuring when a label was tapped
+            When tapping a label, the updated state for selectedIndex caused the picker to reload which prevented the picker from sliding along when tapped and instead would snap to the new label without animating
+         */
+        if shouldReload {
+            uiView.reloadData()
+            
+            self.shouldReload = false
+        }
     }
     
     func makeCoordinator() -> Coordinator {
