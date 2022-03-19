@@ -29,10 +29,10 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct KPConfiguratorDemoView: View {
     
     @State var selectedIndex: Int = 0
-    @State var strings = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Nineth", "Tenth"]//["Skin", "Hairstyle", "Brows", "Eyes" , "Head", "Nose", "Mouth", "Ears", "Facial Hair", "Eyewear", "Headgear", "Clothing" ]//
+    @State var strings = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Nineth", "Tenth"]
     
     @State var tintColor = Color.blue
     @State var textColor = Color(UIColor.secondaryLabel)
@@ -49,7 +49,7 @@ struct ContentView: View {
             VStack(alignment: .center) {
                 
                 KPPickerRepresentable(items: $strings, selectedIndex: $selectedIndex, selectedColor: $tintColor, textColor: $textColor, spacing: $spacing, maskEnable: $maskEnabled, selectionThreshold: $selectionThreshold, shouldDeselectWhenOutsideTreshold: $shouldDeselectWhenOutsideTreshold, shouldReload: $shouldReload)
-                    .frame(height: 80)
+                    .frame(height: 40)
                 
                 
                     Rectangle()
@@ -78,7 +78,7 @@ struct ContentView: View {
                                 }
                         }
                         
-                        Section(header: Text("Selection")) {
+                        Section(header: Text("Selection"), footer: Text("The threshold used for when to select the label is represented by the blue rectangle")) {
                             Stepper("Selection Threshold: \(selectionThreshold)", value: $selectionThreshold, in: 1...200)
                                 .onChange(of: selectionThreshold) { newValue in
                                     shouldReload = true
@@ -114,6 +114,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        KPConfiguratorDemoView()
     }
 }

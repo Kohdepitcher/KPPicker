@@ -9,20 +9,22 @@
 /* Begin PBXBuildFile section */
 		E811B84927DF881B005A04BB /* KPPicker in Frameworks */ = {isa = PBXBuildFile; productRef = E811B84827DF881B005A04BB /* KPPicker */; };
 		E83AB18127DF860400DE266E /* KPPicker_DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83AB18027DF860400DE266E /* KPPicker_DemoApp.swift */; };
-		E83AB18327DF860400DE266E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83AB18227DF860400DE266E /* ContentView.swift */; };
 		E83AB18527DF860500DE266E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E83AB18427DF860500DE266E /* Assets.xcassets */; };
 		E83AB18827DF860500DE266E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E83AB18727DF860500DE266E /* Preview Assets.xcassets */; };
 		E83AB18F27DF864900DE266E /* KPPickerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83AB18E27DF864900DE266E /* KPPickerRepresentable.swift */; };
+		E8AB394A27E5CB7B0050661E /* UIKitDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AB394927E5CB7B0050661E /* UIKitDemo.swift */; };
+		E8AB394C27E5CC080050661E /* KPConfiguratorDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AB394B27E5CC080050661E /* KPConfiguratorDemoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E83AB17D27DF860400DE266E /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E83AB18027DF860400DE266E /* KPPicker_DemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPPicker_DemoApp.swift; sourceTree = "<group>"; };
-		E83AB18227DF860400DE266E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E83AB18427DF860500DE266E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E83AB18727DF860500DE266E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E83AB18E27DF864900DE266E /* KPPickerRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KPPickerRepresentable.swift; sourceTree = "<group>"; };
 		E83AB19027DF873300DE266E /* KPPicker */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KPPicker; path = ../../../..; sourceTree = "<group>"; };
+		E8AB394927E5CB7B0050661E /* UIKitDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitDemo.swift; sourceTree = "<group>"; };
+		E8AB394B27E5CC080050661E /* KPConfiguratorDemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KPConfiguratorDemoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +68,8 @@
 			children = (
 				E83AB18E27DF864900DE266E /* KPPickerRepresentable.swift */,
 				E83AB18027DF860400DE266E /* KPPicker_DemoApp.swift */,
-				E83AB18227DF860400DE266E /* ContentView.swift */,
+				E8AB394B27E5CC080050661E /* KPConfiguratorDemoView.swift */,
+				E8AB394927E5CB7B0050661E /* UIKitDemo.swift */,
 				E83AB18427DF860500DE266E /* Assets.xcassets */,
 				E83AB18627DF860500DE266E /* Preview Content */,
 			);
@@ -155,9 +158,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E83AB18327DF860400DE266E /* ContentView.swift in Sources */,
+				E8AB394A27E5CB7B0050661E /* UIKitDemo.swift in Sources */,
 				E83AB18127DF860400DE266E /* KPPicker_DemoApp.swift in Sources */,
 				E83AB18F27DF864900DE266E /* KPPickerRepresentable.swift in Sources */,
+				E8AB394C27E5CC080050661E /* KPConfiguratorDemoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
