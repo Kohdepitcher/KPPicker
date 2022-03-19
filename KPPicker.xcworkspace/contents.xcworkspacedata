@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:Package.swift">
+   </FileRef>
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <Group
+      location = "group:Sources"
+      name = "Sources">
+      <Group
+         location = "group:KPPicker"
+         name = "KPPicker">
+         <FileRef
+            location = "group:PickerCollectionViewCell.swift">
+         </FileRef>
+         <FileRef
+            location = "group:KPPickerView.swift">
+         </FileRef>
+         <FileRef
+            location = "group:PickerCollectionViewLayout.swift">
+         </FileRef>
+      </Group>
+   </Group>
+   <Group
+      location = "group:Tests"
+      name = "Tests">
+      <Group
+         location = "group:KPPickerTests"
+         name = "KPPickerTests">
+         <FileRef
+            location = "group:KPPickerTests.swift">
+         </FileRef>
+      </Group>
+   </Group>
+   <FileRef
+      location = "group:Example/KPPicker Demo/KPPicker Demo.xcodeproj">
+   </FileRef>
+</Workspace>
