@@ -48,20 +48,28 @@ public class PickerCollectionViewCell: UICollectionViewCell {
     public override var isSelected: Bool {
         didSet {
             
-            if (isSelected) {
-        
-//                UIView.transition(with: self.label, duration: 0.1, options: .transitionCrossDissolve) {
-                    self.label.textColor = self.selectedTint
-//                }
-                
-            } else {
-//                UIView.transition(with: self.label, duration: 0.1, options: .transitionCrossDissolve) {
-                    self.label.textColor = self.textColor
-//                }
-            }
+            let animation = CATransition()
+                animation.type = CATransitionType.fade
+                animation.duration = 0.15
+                self.label.layer.add(animation, forKey: "")
+                label.textColor = self.isSelected ? self.selectedTint : self.textColor
+
+        }
+    }
+    
+    public override var isHighlighted: Bool {
+        didSet {
+            
+            let animation = CATransition()
+                animation.type = CATransitionType.fade
+                animation.duration = 0.15
+                self.label.layer.add(animation, forKey: "")
+                label.textColor = self.isHighlighted ? self.selectedTint : self.textColor
             
         }
     }
+    
+    
     
     //Shared initialiser for setting up the cell
     func sharedInitialise() {
