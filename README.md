@@ -7,7 +7,7 @@ Allows for easy customisation and even customising each individual label shown i
 
 This library is based upon the now deprecated AKPickerView library available at: [AKPickerView Repo](https://github.com/akkyie/AKPickerView-Swift),
 KPPicker is missing some features like the 3D wheel effect and is missing support for Images to be displayed instead of labels.
-If these features are requested, I can add it to this library
+If these features are requested, I can add those features to this library
 
 ## Navigate
 
