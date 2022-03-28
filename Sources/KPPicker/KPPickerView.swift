@@ -148,6 +148,11 @@ public class KPPickerView: UIView {
         }
     }
     
+    //This is used to track if the user is dragging the scroll view
+    //If this is true, then the selection while scrolling logic is activated so that a cell is visually selected as it passes past the center
+    //If not, then don't select the cell to avoid an selection animation bug
+    private var userIsDraggingScrollView: Bool = false
+    
     //MARK: - View Functions
     //MARK: Init Functions
     //Shared initialiser
@@ -317,12 +322,7 @@ extension KPPickerView: UICollectionViewDelegate {
         
         //select the item at the index path of the cell
         self.selectItem(indexPath.item, animated: true, notifySelection: true)
-        
-        let tappedCell = self.collectionView.cellForItem(at: indexPath) as! PickerCollectionViewCell
-        tappedCell.label.textColor = textColor
-        
-        let middleCell = self.collectionView.cellForItem(at: cellInMiddleIndexPath) as! PickerCollectionViewCell
-        middleCell.label.textColor = selectedTextColor
+    
     }
     
 }
@@ -455,11 +455,23 @@ extension KPPickerView: UICollectionViewDelegateFlowLayout {
 extension KPPickerView: UIScrollViewDelegate {
     
     //Select the cell at the center of the collectionView when the scroll view finishes decelerating
+    //Disable scrolling selection logic
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        //set to false so that the scrolling selection logic is disabled
+        userIsDraggingScrollView = false
+        
+        //select the center cell
         let center = self.convert(self.collectionView.center, to: self.collectionView)
         if let indexPath = self.collectionView.indexPathForItem(at: center) {
             self.selectItem(indexPath.item, animated: true, notifySelection: true)
         }
+    }
+    
+    //When the user starts scrolling the picker, we set the userIsDraggingScrollView to true
+    //This will enable the selection animation in the scrollViewDidScroll
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        userIsDraggingScrollView = true
     }
 
     //Select the cell at the center of the collectionView when the scroll view finishes being dragged
@@ -507,12 +519,15 @@ extension KPPickerView: UIScrollViewDelegate {
             //if the middle point of the cell falls between the threshold then it will be be visually selected
             if (lowerThreshold <= middle.x && middle.x <= upperThreshold) {
                 //print("In Middle")
-
-                //select the item at the center position so that the cell changes color when in the middle of the picker
-                self.collectionView.selectItem(
-                    at: indexPath,
-                    animated: false,
-                    scrollPosition: UICollectionView.ScrollPosition())
+                
+                if (userIsDraggingScrollView) {
+                    //select the item at the center position so that the cell changes color when in the middle of the picker
+                    self.collectionView.selectItem(
+                        at: indexPath,
+                        animated: true,
+                        scrollPosition: UICollectionView.ScrollPosition())
+                    
+                }
 
                 /* set this property to the index path of the cell which is at the center of the collection view
                  * if the index path changes, the didSet on the property will fire the selection trigger
@@ -520,6 +535,7 @@ extension KPPickerView: UIScrollViewDelegate {
                  * This logic ensures that the haptic feedback only fires once as the middle cell trueley falls within the selection threshold
                  */
                 cellInMiddleIndexPath = indexPath
+                
 
             }
 
@@ -527,7 +543,7 @@ extension KPPickerView: UIScrollViewDelegate {
             else {
 
                 //deselect the cell to play the deselection animation when outside of the threshold
-                if ( shouldDeselectWhenOutsideTreshold ) {
+                if ( userIsDraggingScrollView && shouldDeselectWhenOutsideTreshold ) {
                     self.collectionView.deselectItem(at: indexPath, animated: true)
                 }
 
