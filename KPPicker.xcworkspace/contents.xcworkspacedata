@@ -8,10 +8,10 @@
       location = "group:README.md">
    </FileRef>
    <Group
-      location = "container:"
+      location = "group:Resources"
       name = "Resources">
       <FileRef
-         location = "group:/Users/kohdepitcher/Developer/Xcode Projects/KPPicker/Picker.jpeg">
+         location = "group:Picker.jpeg">
       </FileRef>
    </Group>
    <Group
