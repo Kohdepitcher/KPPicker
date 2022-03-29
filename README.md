@@ -1,4 +1,5 @@
 # KPPicker
+<img align="left" src="https://github.com/Kohdepitcher/KPPicker/blob/main/Resources/Picker.jpeg" width="360"/>
 
 ## About
 
@@ -15,6 +16,7 @@ If these features are requested, I can add those features to this library
 - [Installation](#installation)
 - [Usage](#usage)
     - [Customisation](#customisation)
+- [Demo](#demo)
 
 
 ## Requirements
@@ -163,3 +165,7 @@ Changes the selection logic for the threshold, if set to `true` then the picker 
 ```swift
 self.picker.shouldDeselectWhenOutsideTreshold = true
 ```
+
+## Demo
+This UI component comes with a demo app that can be installed to the simulator or a device to test it out.
+From it you can customise the picker including all the customisable properties listed above
