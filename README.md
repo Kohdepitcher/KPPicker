@@ -147,7 +147,7 @@ self.picker.maskEnabled = true
 
 ### Item Spacing
 
-You can control the spacing between each label in the picker by setting the `itemSpacing `variable
+You can control the spacing between each label in the picker by setting the `itemSpacing` variable
 ```swift
 self.picker.itemSpacing = 40
 ```
@@ -168,4 +168,6 @@ self.picker.shouldDeselectWhenOutsideTreshold = true
 
 ## Demo
 This UI component comes with a demo app that can be installed to the simulator or a device to test it out.
-From it you can customise the picker including all the customisable properties listed above
+From it you can customise the picker using all the customisable properties listed above.
+
+<img src="https://github.com/Kohdepitcher/KPPicker/blob/main/Resources/Demo%20Screenshot.png" width="360"/>
