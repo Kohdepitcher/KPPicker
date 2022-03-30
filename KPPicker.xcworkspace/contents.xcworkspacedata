@@ -11,6 +11,9 @@
       location = "group:Resources"
       name = "Resources">
       <FileRef
+         location = "group:Demo Screenshot.png">
+      </FileRef>
+      <FileRef
          location = "group:Picker.jpeg">
       </FileRef>
    </Group>
