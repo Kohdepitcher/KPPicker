@@ -17,7 +17,9 @@ If these features are requested, I can add those features to this library
 - [Usage](#usage)
     - [Customisation](#customisation)
 - [Demo](#demo)
+- [Contribution](#contribution)
 - [Author](#author)
+- [License](#license)
 
 
 ## Requirements
@@ -175,8 +177,18 @@ self.picker.shouldDeselectWhenOutsideTreshold = true
 This UI component comes with a demo app that can be installed to the simulator or a device to test it out.
 From it you can customise the picker using all the customisable properties listed above.
 
+To build it, clone the repo and open up the Xcode Workspace.
+In the project navigator, select the Demo app project and change the team to your personal team.
+Finally select the KPPicker Demo target and build to an Simulator or an physical device.
+
 <img src="https://github.com/Kohdepitcher/KPPicker/blob/main/Resources/Demo%20Screenshot.png" width="360"/>
+
+## Contribution
+If you see any errors in my code or have any suggestions for this library then feel free to create a pull request and I will review it.
 
 ## Author
 Kohde Pitcher
 - <a href="https://kohdepitcher.com" target="_blank">My Website</a>
+
+## License
+This library uses the MIT licenses as its uses some code from the AKPicker mentioned at the start of the readme
