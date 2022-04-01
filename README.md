@@ -1,5 +1,6 @@
 # KPPicker
 <img src="https://github.com/Kohdepitcher/KPPicker/blob/main/Resources/Picker.jpeg" width="360"/>
+<img src="https://github.com/Kohdepitcher/KPPicker/blob/main/Resources/Video-of-picker.gif" width="360"/>
 
 ## About
 
