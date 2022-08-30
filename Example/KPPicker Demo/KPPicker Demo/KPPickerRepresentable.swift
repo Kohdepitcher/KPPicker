@@ -58,7 +58,7 @@ struct KPPickerRepresentable: UIViewRepresentable {
         picker.dataSource = context.coordinator
         
         //select the first item
-        picker.selectItem(0, animated: false)
+        picker.selectItem(selectedIndex, animated: false)
         
         return picker
     }
@@ -71,6 +71,7 @@ struct KPPickerRepresentable: UIViewRepresentable {
         uiView.selectionThreshold = selectionThreshold
         uiView.shouldDeselectWhenOutsideTreshold = shouldDeselectWhenOutsideTreshold
         
+        
         //optionally reload the picker when shouldReload is set
         /*  This is stop an animation bug from occuring when a label was tapped
             When tapping a label, the updated state for selectedIndex caused the picker to reload which prevented the picker from sliding along when tapped and instead would snap to the new label without animating
@@ -80,6 +81,8 @@ struct KPPickerRepresentable: UIViewRepresentable {
             
             self.shouldReload = false
         }
+        
+        uiView.selectItem(self.selectedIndex, animated: true)
     }
     
     func makeCoordinator() -> Coordinator {
