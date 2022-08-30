@@ -64,7 +64,7 @@ public class PickerCollectionViewCell: UICollectionViewCell {
                 animation.type = CATransitionType.fade
                 animation.duration = 0.15
                 self.label.layer.add(animation, forKey: "")
-                label.textColor = self.isHighlighted ? self.selectedTint : self.textColor
+            label.textColor = self.textColor//self.isHighlighted ? self.selectedTint : self.textColor
             
         }
     }
