@@ -520,14 +520,21 @@ extension KPPickerView: UIScrollViewDelegate {
             if (lowerThreshold <= middle.x && middle.x <= upperThreshold) {
                 //print("In Middle")
                 
-                if (userIsDraggingScrollView) {
+//                if (userIsDraggingScrollView) {
+                    
                     //select the item at the center position so that the cell changes color when in the middle of the picker
+                    /*
+                     *  Note that here we use the select item function of the collection view instead of our own select item function
+                     *  Doing so, we still get the selection text color for the cell at the center but this doesn't trigger an "actual selection" with the picker delegate
+                     *  This should be good for performance hopefully as scrolling through multiple items quickly at once wont trigger a constant stream of "didSelectItem" notifications
+                     */
                     self.collectionView.selectItem(
                         at: indexPath,
                         animated: true,
                         scrollPosition: UICollectionView.ScrollPosition())
                     
-                }
+                    
+//                }
 
                 /* set this property to the index path of the cell which is at the center of the collection view
                  * if the index path changes, the didSet on the property will fire the selection trigger
