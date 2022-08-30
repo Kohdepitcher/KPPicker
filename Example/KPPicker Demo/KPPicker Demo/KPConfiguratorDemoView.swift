@@ -43,6 +43,8 @@ struct KPConfiguratorDemoView: View {
     @State var spacing = 40
     @State var shouldReload = false
     
+    @State var secondarySelectionIndex = 0
+    
     var body: some View {
         NavigationView {
             
@@ -79,10 +81,17 @@ struct KPConfiguratorDemoView: View {
                         }
                         
                         Section(header: Text("Selection"), footer: Text("The threshold used for when to select the label is represented by the blue rectangle")) {
+                            Stepper("Selected Index: \(secondarySelectionIndex)", value: $secondarySelectionIndex, in: 0...strings.count-1)
+
+                            Button(action: { selectedIndex = secondarySelectionIndex }) {
+                                Text("Select cell at index")
+                            }
+                            
                             Stepper("Selection Threshold: \(selectionThreshold)", value: $selectionThreshold, in: 1...200)
                                 .onChange(of: selectionThreshold) { newValue in
                                     shouldReload = true
                                 }
+                            
                             Toggle("Should Picker Deselect When Outside Threshold", isOn: $shouldDeselectWhenOutsideTreshold)
                                 .onChange(of: shouldDeselectWhenOutsideTreshold) { newValue in
                                     shouldReload = true
