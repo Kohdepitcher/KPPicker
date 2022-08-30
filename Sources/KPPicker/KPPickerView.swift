@@ -251,8 +251,13 @@ public class KPPickerView: UIView {
         self.invalidateIntrinsicContentSize()
         self.collectionView.collectionViewLayout.invalidateLayout()
         
+        
+//        self.collectionView.reloadData()
+        
         //Reload the collection view that is used under the hood
-        self.collectionView.reloadData()
+        //we use reloadSections() instead of reloadData() to avoid selection animations clashing with layout animations during reload
+        //this prevents a flashing of the middle label so that it doesn't show the wrong text for a seond before changing to the correct text when reloading
+        self.collectionView.reloadSections(IndexSet(integer: 0))
         
         //Continue if the datasource is not nill AND there's more than 0 items in the datasource
         if self.dataSource != nil && self.dataSource!.numberOfItems(self) > 0 {
@@ -310,6 +315,12 @@ public class KPPickerView: UIView {
         if notifySelection {
             self.delegate?.pickerView?(self, didSelectItem: item)
         }
+        
+//        //Create a cell by dequeueing a reusable cell using the PickerCell's class name as the reuse indetifier
+//        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(PickerCollectionViewCell.self), for: IndexPath(item: item, section: 0)) as! PickerCollectionViewCell
+//        cell.isSelected = true//label.textColor = .red
+//
+//        print(cell.label.text)
     }
 }
 
@@ -348,48 +359,54 @@ extension KPPickerView: UICollectionViewDataSource {
         
         //Create a cell by dequeueing a reusable cell using the PickerCell's class name as the reuse indetifier
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(PickerCollectionViewCell.self), for: indexPath) as! PickerCollectionViewCell
+        
+        //setup the colors in the cell
+        cell.selectedTint = self.selectedTextColor
+        cell.textColor = self.textColor
+        
+        //setup the label externally from the cell itself
+        cell.label.font = self.font
+        cell.label.textColor = self.textColor
+        //cell.label.bounds = CGRect(origin: CGPoint.zero, size: self.sizeForString(text as NSString))
+        
+        //if the cell's index path matches the selected item
+        if selectedPosition == indexPath.item {
+            
+            //set the label color to look like its been select
+            cell.label.textColor = self.selectedTextColor
+        } else {
+            
+            //default back to the normal text color otherwise
+            cell.label.textColor = self.textColor
+        }
+        
+        //continue if the delegate is set
+        if let delegate = self.delegate {
+            
+            //allow the label to be configured outside of this view
+            delegate.pickerView?(self, configureLabel: cell.label, forItem: indexPath.item)
+
+            //allow the margin to be configured directly for the cell's index path
+            if let margin = delegate.pickerView?(self, marginSpacingForItem: indexPath.item) {
+                cell.label.frame = cell.label.frame.insetBy(dx: -margin.width, dy: -margin.height)
+            }
+        }
 
         //try to get the label for the cell's index path from the data source
         if let text = self.dataSource?.pickerView(self, textForItem: indexPath.item) {
-            
-            //setup the colors in the cell
-            cell.selectedTint = self.selectedTextColor
-            cell.textColor = self.textColor
-            
-            //setup the label externally from the cell itself
             cell.label.text = text
-            cell.label.font = self.font
-            cell.label.textColor = self.textColor
-            //cell.label.bounds = CGRect(origin: CGPoint.zero, size: self.sizeForString(text as NSString))
-            
-            //if the cell's index path matches the middle cell's index path
-            if cellInMiddleIndexPath == indexPath {
-                
-                //set the label color to look like its been select
-                cell.label.textColor = self.selectedTextColor
-            } else {
-                
-                //default back to the normal text color otherwise
-                cell.label.textColor = self.textColor
-            }
-
-            //continue if the delegate is set
-            if let delegate = self.delegate {
-                
-                //allow the label to be configured outside of this view
-                delegate.pickerView?(self, configureLabel: cell.label, forItem: indexPath.item)
-
-                //allow the margin to be configured directly for the cell's index path
-                if let margin = delegate.pickerView?(self, marginSpacingForItem: indexPath.item) {
-                    cell.label.frame = cell.label.frame.insetBy(dx: -margin.width, dy: -margin.height)
-                }
-            }
         }
         
         
         return cell
     }
 
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        //Create a cell by dequeueing a reusable cell using the PickerCell's class name as the reuse indetifier
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(PickerCollectionViewCell.self), for: indexPath) as! PickerCollectionViewCell
+        
+        cell.label.text = ""
+    }
 
 }
 
@@ -520,7 +537,7 @@ extension KPPickerView: UIScrollViewDelegate {
             if (lowerThreshold <= middle.x && middle.x <= upperThreshold) {
                 //print("In Middle")
                 
-//                if (userIsDraggingScrollView) {
+                if (userIsDraggingScrollView) {
                     
                     //select the item at the center position so that the cell changes color when in the middle of the picker
                     /*
@@ -533,8 +550,7 @@ extension KPPickerView: UIScrollViewDelegate {
                         animated: true,
                         scrollPosition: UICollectionView.ScrollPosition())
                     
-                    
-//                }
+                }
 
                 /* set this property to the index path of the cell which is at the center of the collection view
                  * if the index path changes, the didSet on the property will fire the selection trigger
